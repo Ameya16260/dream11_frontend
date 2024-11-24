@@ -63,28 +63,45 @@ function Home() {
 
             <div className='bg-[linear-gradient(30deg,_#ECDB87,_#DFE1E2,_#DFE1E2,_#DFE1E2)]  w-full rounded-[20px] p-0.5'>
                 <div className='w-full h-full bg-white rounded-[18px] p-2'>
-                    <div className='bg-[linear-gradient(30deg,_#FFF4B5,_#FFFFFF,_#FFFFFF,_#FFFFFF,_#FFFFFF,_#FFFFFF)] w-full h-full rounded-[14px] p-2'>
-                        
-                    <div className='flex justify-between items-end pb-5'>
-                        <div>
-                            <p className='font-bold text-gray-400 text-sm md:text-lg'>Price Pool</p>
-                            <p className=' font-extrabold text-gray-800 text-2xl md:text-[40px]'>₹1.26 Lacks</p>
-                        </div>
-                        <div className='text-right flex flex-col justify-end'>
-                            <p className='font-bold text-gray-400 text-sm md:text-lg'>1st Price</p>
-                            <p className=' font-extrabold text-gray-800 text-base md:text-[30px]'>₹300</p>
-                        </div>
-                    </div>
+                    <div className='bg-[linear-gradient(30deg,_#FFF4B5,_#FFFFFF,_#FFFFFF,_#FFFFFF,_#FFFFFF)] w-full h-full rounded-[14px] p-2'>
 
-                    <div className='w-full h-1 bg-red-300 rounded-full'>
-                        <div className='w-1/3 h-full bg-[linear-gradient(90deg,_#A3212A,_#8D1B23)] rounded-full'></div>
-                    </div>
+                        <div className='flex justify-between items-end pb-5 md:pb-[40px]'>
+                            <div>
+                                <p className='font-bold text-gray-400 text-sm md:text-lg'>Price Pool</p>
+                                <p className=' font-extrabold text-gray-800 text-2xl md:text-[40px]'>₹1.26 Lacks</p>
+                            </div>
+                            <div className='text-right flex flex-col justify-end'>
+                                <p className='font-bold text-gray-400 text-sm md:text-lg'>1st Price</p>
+                                <p className=' font-extrabold text-gray-800 text-base md:text-[30px]'>₹300</p>
+                            </div>
+                        </div>
+
+                        <div className='w-full h-1 md:h-3 bg-red-300 rounded-full'>
+                            <div className='w-1/3 h-full bg-[linear-gradient(90deg,_#A3212A,_#8D1B23)] rounded-full'></div>
+                        </div>
+                        <div className='flex justify-between'>
+                            <p className='text-gray-600 text-xs md:text-base mt-1 md:mt-2'><span className='font-bold'>1,518</span> spots left</p>
+                            <p className='text-gray-600 text-xs md:text-base mt-1 md:mt-2'><span className='font-bold'>2,000</span> spots</p>
+                        </div>
+
+                        <div className='mt-[45px] md:mt-[70px] mb-2 md:m-2 flex justify-between items-center'>
+                            <div className='flex flex-col'>
+                                <div className='text-gray-500 text-sm md:text-base'>Join for</div>
+                                <div className='font-extrabold text-[#5D4604]  md:text-2xl'>₹75</div>
+                            </div>
+                            <div className='p-2 text-center w-[65%] bg-green-600 rounded-lg font-custom text-white  text-lg md:text-2xl'>JOIN NOW</div>
+                        </div>
 
                     </div>
                 </div>
             </div>
-
+            <button className="left-1/2 transform -translate-x-1/2 relative bg-gray-300 text-gray-500 text-sm font-semibold py-2 px-4 clip-path-trapezium">
+                View all contests 
+            </button>
         </div>
+
+        <div className='w-[90%] bg-gray-50 shadow-md shadow-gray-400 absolute top-[75%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-xl p-4 text-center text-xl font-bold text-gray-700'>All Upcoming Matches</div>
+
     </>
     );
 }
