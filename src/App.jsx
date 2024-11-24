@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Use Routes, not Switch
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/home/Home';
 import Upcoming_matches from './components/upcoming_matches/upcoming_matches';
 
