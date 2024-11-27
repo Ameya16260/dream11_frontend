@@ -3,7 +3,7 @@ import React from 'react'
 function Join() {
   return (
     <div>
-      This is join page!
+      Join page!
     </div>
   )
 }
