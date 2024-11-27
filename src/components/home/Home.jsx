@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function Home() {
     return (<>
@@ -19,7 +20,7 @@ function Home() {
                 <div className=" ml-1 h-0.5 md:h-1 w-[50px] md:w-[20%] bg-gradient-to-r from-white to-transparent rounded-full"></div>
             </div>
         </div>
-        <div className="w-[90%] h-[80%] bg-white absolute top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-2xl px-4 md:px-10">
+        <div className="w-[90%] md:w-[75%] h-[80%] bg-white absolute top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-2xl px-4 md:px-10">
             <div className=" w-full bg-gradient-to-r from-[#FEFEFE] via-[#F8F9FB] to-[#FEFEFE] rounded-t-2xl text-sm md:text-md text-center font-bold text-gray-400 p-2"> Australia vs Pakistan T20I</div>
 
             <div className='flex justify-between my-5'>
@@ -68,7 +69,7 @@ function Home() {
                         <div className='flex justify-between items-end pb-5 md:pb-[40px]'>
                             <div>
                                 <p className='font-bold text-gray-400 text-sm md:text-lg'>Price Pool</p>
-                                <p className=' font-extrabold text-gray-800 text-2xl md:text-[40px]'>₹1.26 Lacks</p>
+                                <p className=' font-extrabold text-gray-800 text-2xl md:text-[40px]'>₹1.26 Lakhs</p>
                             </div>
                             <div className='text-right flex flex-col justify-end'>
                                 <p className='font-bold text-gray-400 text-sm md:text-lg'>1st Price</p>
@@ -89,18 +90,21 @@ function Home() {
                                 <div className='text-gray-500 text-sm md:text-base'>Join for</div>
                                 <div className='font-extrabold text-[#5D4604]  md:text-2xl'>₹75</div>
                             </div>
-                            <div className='p-2 text-center w-[65%] bg-green-600 rounded-lg font-custom text-white  text-lg md:text-2xl'>JOIN NOW</div>
+                            <Link to="/join" className='p-2 text-center w-[65%] bg-green-600 rounded-lg font-custom text-white  text-lg md:text-2xl'>JOIN NOW</Link>
                         </div>
 
                     </div>
                 </div>
             </div>
+            <Link to="/matches">
             <button className="left-1/2 transform -translate-x-1/2 relative bg-gray-300 text-gray-500 text-sm font-semibold py-2 px-4 clip-path-trapezium">
-                View all contests 
-            </button>
+                View all contests
+            </button></Link>
         </div>
 
-        <div className='w-[90%] bg-gray-50 shadow-md shadow-gray-400 absolute top-[75%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-xl p-4 text-center text-xl font-bold text-gray-700'>All Upcoming Matches</div>
+        <Link to='/matches' className='pb-[70px] w-[90%] md:w-[75%] absolute top-[75%] md:top-[105%] left-1/2 transform -translate-x-1/2'>
+            <div className=' bg-gray-50 shadow-md shadow-gray-400 rounded-xl p-4 text-center text-xl font-bold text-gray-700'>All Upcoming Matches</div>
+        </Link>
 
     </>
     );
