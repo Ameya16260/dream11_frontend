@@ -10,14 +10,14 @@ function Upcoming_matches() {
         <div className=" font-semibold py-2 text-gray-800text-[17px] md:text-[30px] md:w-[75%] sm:w-[85%] w-[95%] mt-4">
           Upcoming Matches
         </div>
-        <div className="border-2  md:w-[75%] sm:w-[85%] w-[95%] rounded-3xl mb-4">
-          <div className=" md:text-[1.5rem] p-3 text-gray-800">
+        <div className="border-2  md:w-[75%] sm:w-[85%] w-[95%] rounded-xl mb-4">
+          <div className=" text-[12px] sm:text-[15px] md:text-[1.5rem] p-3 text-gray-800">
             West Indies vs England T20I
           </div>
           <div className="grid grid-cols-[2fr_1.5fr_2fr] ">
             <div className="">
               <div className="flex items-center overflow-hidden px-3 py-1 relative">
-                <div className="z-10 h-[4rem] md:h-[7rem] flex items-center">
+                <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                   <img
                     src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                     alt="Badge"
@@ -33,7 +33,7 @@ function Upcoming_matches() {
                   <img
                     src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                     alt="Badge"
-                    className=" w-[4rem] h-[4rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
+                    className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
                   />
                 </div>
               </div>
@@ -51,7 +51,7 @@ function Upcoming_matches() {
             </div>
             <div className="">
               <div className="flex flex-row-reverse items-center overflow-hidden px-3 py-1 relative">
-                <div className="z-10 h-[4rem] md:h-[7rem] flex items-center">
+                <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                   <img
                     src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                     alt="Badge"
@@ -67,7 +67,7 @@ function Upcoming_matches() {
                   <img
                     src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                     alt="Badge"
-                    className=" w-[4rem] h-[4rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
+                    className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
                   />
                 </div>
               </div>
@@ -76,20 +76,22 @@ function Upcoming_matches() {
               </div>
             </div>
           </div>
+          <div className="border-[1px] border-gray-200 my-1"></div>
           <div className="p-2">
             <div className="border-0 rounded-full inline px-2 pb-1 bg-[#f9f4ee] text-[15px] mt-[5px] text-[#5D4604] md:text-[20px]">
               Mega <span className="font-semibold">{"\u20B9"}7.6 crores</span>
             </div>
           </div>
         </div>
-        <div className="border-2  md:w-[75%] sm:w-[85%] w-[95%] rounded-3xl mb-4">
-          <div className=" md:text-[1.5rem] p-3 text-gray-800">
+
+        <div className="border-2  md:w-[75%] sm:w-[85%] w-[95%] rounded-xl mb-4">
+          <div className=" text-[12px] sm:text-[15px] md:text-[1.5rem] p-3 text-gray-800">
             West Indies vs England T20I
           </div>
           <div className="grid grid-cols-[2fr_1.5fr_2fr] ">
             <div className="">
               <div className="flex items-center overflow-hidden px-3 py-1 relative">
-                <div className="z-10 h-[4rem] md:h-[7rem] flex items-center">
+                <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                   <img
                     src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                     alt="Badge"
@@ -105,7 +107,7 @@ function Upcoming_matches() {
                   <img
                     src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                     alt="Badge"
-                    className=" w-[4rem] h-[4rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
+                    className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
                   />
                 </div>
               </div>
@@ -123,7 +125,7 @@ function Upcoming_matches() {
             </div>
             <div className="">
               <div className="flex flex-row-reverse items-center overflow-hidden px-3 py-1 relative">
-                <div className="z-10 h-[4rem] md:h-[7rem] flex items-center">
+                <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                   <img
                     src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                     alt="Badge"
@@ -139,7 +141,7 @@ function Upcoming_matches() {
                   <img
                     src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                     alt="Badge"
-                    className=" w-[4rem] h-[4rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
+                    className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
                   />
                 </div>
               </div>
@@ -148,20 +150,22 @@ function Upcoming_matches() {
               </div>
             </div>
           </div>
+          <div className="border-[1px] border-gray-200 my-1"></div>
           <div className="p-2">
             <div className="border-0 rounded-full inline px-2 pb-1 bg-[#f9f4ee] text-[15px] mt-[5px] text-[#5D4604] md:text-[20px]">
               Mega <span className="font-semibold">{"\u20B9"}7.6 crores</span>
             </div>
           </div>
         </div>
-        <div className="border-2  md:w-[75%] sm:w-[85%] w-[95%] rounded-3xl mb-4">
-          <div className=" md:text-[1.5rem] p-3 text-gray-800">
+
+        <div className="border-2  md:w-[75%] sm:w-[85%] w-[95%] rounded-xl mb-4">
+          <div className=" text-[12px] sm:text-[15px] md:text-[1.5rem] p-3 text-gray-800">
             West Indies vs England T20I
           </div>
           <div className="grid grid-cols-[2fr_1.5fr_2fr] ">
             <div className="">
               <div className="flex items-center overflow-hidden px-3 py-1 relative">
-                <div className="z-10 h-[4rem] md:h-[7rem] flex items-center">
+                <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                   <img
                     src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                     alt="Badge"
@@ -177,7 +181,7 @@ function Upcoming_matches() {
                   <img
                     src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                     alt="Badge"
-                    className=" w-[4rem] h-[4rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
+                    className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
                   />
                 </div>
               </div>
@@ -195,7 +199,7 @@ function Upcoming_matches() {
             </div>
             <div className="">
               <div className="flex flex-row-reverse items-center overflow-hidden px-3 py-1 relative">
-                <div className="z-10 h-[4rem] md:h-[7rem] flex items-center">
+                <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                   <img
                     src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                     alt="Badge"
@@ -211,7 +215,7 @@ function Upcoming_matches() {
                   <img
                     src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                     alt="Badge"
-                    className=" w-[4rem] h-[4rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
+                    className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-10"
                   />
                 </div>
               </div>
@@ -220,6 +224,7 @@ function Upcoming_matches() {
               </div>
             </div>
           </div>
+          <div className="border-[1px] border-gray-200 my-1"></div>
           <div className="p-2">
             <div className="border-0 rounded-full inline px-2 pb-1 bg-[#f9f4ee] text-[15px] mt-[5px] text-[#5D4604] md:text-[20px]">
               Mega <span className="font-semibold">{"\u20B9"}7.6 crores</span>

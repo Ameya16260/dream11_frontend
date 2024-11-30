@@ -12,6 +12,9 @@ export default {
       clipPath: {
         trapezium: "polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)",
       },
+      screens: {
+        'xs': '500px',
+      },
     }
   },
   plugins: [
