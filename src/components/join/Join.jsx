@@ -137,7 +137,9 @@ function Join() {
               >
                 {index === 10 && (
                   <div className="flex justify-center items-center">
-                    <div className="font-bold md:text-[20px]">11</div>
+                    <div className="font-bold text-[12px] md:text-[20px]">
+                      11
+                    </div>
                   </div>
                 )}
               </div>
