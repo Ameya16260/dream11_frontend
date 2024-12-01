@@ -2,7 +2,7 @@ import React from 'react'
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
-function Join() {
+function Choose() {
   return (
     <div>
       <div className='flex items-center bg-[linear-gradient(150deg,_#470D0A,_#0E1319,_#0E1319)] p-2'>
@@ -36,24 +36,24 @@ function Join() {
       </div>
 
       <div className='text-gray-800 font-bold text-center mt-6 md:text-lg'>Pick your favourite players</div>
-      <Link to='/'>
+      <Link to='/join'>
         <div className=' w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4'>
           <img src="/join.png" alt="" className='w-full rounded-lg' />
           <div to="/join" className='p-3 mt-2 md:mt-4 mb-4 w-full text-center bg-green-600 rounded-lg  text-white font-bold md:text-lg'>CREATE YOUR OWN TEAM</div>
         </div></Link>
 
       <div className='flex w-full justify-center items-center mt-7'>
-        <div className=" mr-2 h-[1px] md:h-1 w-[70px] md:w-[20%] bg-gradient-to-l from-gray-700 to-transparent rounded-full"></div>
+        <div className=" mr-2 h-[1px] md:h-[2px] w-[70px] md:w-[15%] bg-gradient-to-l from-gray-700 to-transparent rounded-full"></div>
         <div className=' text-gray-700  font-bold md:text-2xl'>OR</div>
-        <div className=" ml-2 h-[1px] md:h-1 w-[70px] md:w-[20%] bg-gradient-to-r from-gray-700 to-transparent rounded-full"></div>
+        <div className=" ml-2 h-[1px] md:h-[2px] w-[70px] md:w-[15%] bg-gradient-to-r from-gray-700 to-transparent rounded-full"></div>
       </div>
 
       <div className='text-gray-800 font-bold text-center mt-6 md:text-lg'>Pick team made with AI</div>
 
-      <div className=' w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4'>
+      <div className=' w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4 mb-10'>
         <img src="/ai.png" alt="" className='w-full rounded-md' />
 
-        <Link to='/' className="relative inline-block px-6 py-3 w-full font-semibold text-black bg-white rounded-lg group">
+        <Link to='/join' className="relative inline-block px-6 py-4 w-full font-semibold text-black bg-white rounded-lg group text-center">
           {/* Subtle Glowing Border */}
           <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg blur-lg opacity-80 transition-transform transform group-hover:scale-105"></span>
 
@@ -61,7 +61,7 @@ function Join() {
           <span className="absolute inset-1 bg-white rounded-lg"></span>
 
           {/* Button Text */}
-          <span className="relative font-bold text-gray-600">USE AI GENERATED TEAM</span>
+          <span className="relative font-bold text-gray-600  md:text-lg">USE AI GENERATED TEAM</span>
         </Link>
 
       </div>
@@ -71,4 +71,4 @@ function Join() {
   )
 }
 
-export default Join
+export default Choose

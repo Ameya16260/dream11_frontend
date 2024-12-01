@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { BiCricketBall } from "react-icons/bi";
+import { IoIosArrowForward } from "react-icons/io";
 
 function Home() {
     return (<>
@@ -20,7 +22,7 @@ function Home() {
                 <div className=" ml-1 h-0.5 md:h-1 w-[50px] md:w-[20%] bg-gradient-to-r from-white to-transparent rounded-full"></div>
             </div>
         </div>
-        <div className="w-[90%] md:w-[75%] h-[80%] bg-white absolute top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-2xl px-4 md:px-10">
+        <div className="w-[90%] md:w-[55%] h-[80%] bg-white absolute top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-2xl px-4 md:px-10">
             <div className=" w-full bg-gradient-to-r from-[#FEFEFE] via-[#F8F9FB] to-[#FEFEFE] rounded-t-2xl text-sm md:text-md text-center font-bold text-gray-400 p-2"> Australia vs Pakistan T20I</div>
 
             <div className='flex justify-between my-5'>
@@ -29,7 +31,7 @@ function Home() {
                         <img
                             src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
                             alt="Badge"
-                            className="w-10 h-10 md:w-[100px] md:h-[100px] object-cover rounded-full shadow-md shadow-gray-700"
+                            className="w-10 h-10 md:w-[85px] md:h-[85px] object-cover rounded-full shadow-md shadow-gray-700"
                         />
                         <div className=' pl-2 md:pl-4'>
                             <div className='text-2xl md:text-[40px] font-custom font-bold text-gray-700'>
@@ -51,7 +53,7 @@ function Home() {
                         <img
                             src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
                             alt="Badge"
-                            className="w-10 h-10 md:w-[100px] md:h-[100px] object-cover rounded-full shadow-md shadow-gray-700"
+                            className="w-10 h-10 md:w-[85px] md:h-[85px] object-cover rounded-full shadow-md shadow-gray-700"
                         />
                     </div>
                     <p className='text-right pt-1 text-sm font-semibold text-gray-500 md:hidden'>Pakistan</p>
@@ -90,20 +92,26 @@ function Home() {
                                 <div className='text-gray-500 text-sm md:text-base'>Join for</div>
                                 <div className='font-extrabold text-[#5D4604]  md:text-2xl'>₹75</div>
                             </div>
-                            <Link to="/join" className='p-2 text-center w-[65%] bg-green-600 rounded-lg font-custom text-white  text-lg md:text-2xl'>JOIN NOW</Link>
+                            <Link to="/choose" className='p-2 text-center w-[65%] bg-green-600 rounded-lg font-custom text-white  text-lg md:text-2xl'>JOIN NOW</Link>
                         </div>
 
                     </div>
                 </div>
             </div>
             <Link to="/matches">
-            <button className="left-1/2 transform -translate-x-1/2 relative bg-gray-300 text-gray-500 text-sm font-semibold py-2 px-4 clip-path-trapezium">
-                View all contests
-            </button></Link>
+                <button className="left-1/2 transform -translate-x-1/2 relative bg-gray-300 text-gray-500 text-sm font-semibold py-2 px-4 clip-path-trapezium">
+                    View all contests
+                </button></Link>
         </div>
 
-        <Link to='/matches' className='pb-[70px] w-[90%] md:w-[75%] absolute top-[75%] md:top-[105%] left-1/2 transform -translate-x-1/2'>
-            <div className=' bg-gray-50 shadow-md shadow-gray-400 rounded-xl p-4 text-center text-xl font-bold text-gray-700'>All Upcoming Matches</div>
+        <Link to='/matches' className='pb-[70px] w-[90%] md:w-[55%] absolute top-[73%] md:top-[100%] left-1/2 transform -translate-x-1/2'>
+            <div className=' bg-gray-50 shadow-md shadow-gray-400 px-2 py-3 rounded-xl text-center text-lg font-bold text-gray-700 flex items-center justify-between'>
+                <div className='flex items-center'>
+                    <BiCricketBall className='p-1 h-8 w-8 shadow-md mr-3 shadow-gray-300 rounded-full text-red-500' />
+                    <div>All Upcoming Matches</div>
+                </div>
+                <IoIosArrowForward className='text-gray-700 text-end' />
+            </div>
         </Link>
 
     </>
