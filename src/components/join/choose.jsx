@@ -48,7 +48,8 @@ function Choose() {
         <div className=" ml-2 h-[1px] md:h-[2px] w-[70px] md:w-[15%] bg-gradient-to-r from-gray-700 to-transparent rounded-full"></div>
       </div>
 
-      <div className='text-gray-800 font-bold text-center mt-6 md:text-lg'>Pick team made with AI</div>
+      <div className='text-gray-800 font-bold text-center mt-6 md:text-lg'>Pick team made with AI
+      </div>
 
       <div className=' w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4 mb-10'>
         <img src="/ai.png" alt="" className='w-full rounded-md' />
