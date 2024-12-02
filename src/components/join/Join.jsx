@@ -2,40 +2,102 @@ import React from "react";
 import { CgAdd } from "react-icons/cg";
 import { CgRemove } from "react-icons/cg";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useWindowSize } from "react-use";
 import image from "../../assets/a.avif";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import data from "../../assets/images.json";
 function Join() {
+  const jsonData = data;
+
+  const { match_id } = useParams();
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [Players, setPlayers] = useState([]);
+  const [Players2, setPlayers2] = useState([]);
+  const [team1_info, setteam1_info] = useState([]);
+  const [team2_info, setteam2_info] = useState([]);
+  const [Details, setDetails] = useState([]);
   const [SelectedPlayersCount, setSelectedPlayersCount] = useState(0);
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    // Check if match is defined before proceeding
+
+    // Get the match time (in ISO 8601 format)
+    const matchDate = new Date(Details.date);
+    console.log("match:", matchDate);
+
+    // Function to update the time left
+    const calculateTimeLeft = () => {
+      // Get the current time every time calculateTimeLeft is called
+      const now = new Date(import.meta.env.VITE_NOW_TIME);
+      console.log("Now:", now);
+
+      const timeDifference = matchDate - now;
+
+      // If the match time has already passed
+      if (timeDifference <= 0) {
+        setTimeLeft("The match has already started or ended.");
+        clearInterval(timer); // Clear the interval to stop further updates
+        return;
+      }
+
+      // If less than 1 day left, show time in hours and minutes
+      if (timeDifference < 1000 * 60 * 60 * 24) {
+        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+        const minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        setTimeLeft(`${hours}h ${minutes}m`);
+      } else {
+        // If more than 1 day left, show time in days
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(timeDifference / (1000 * 60 * 60) - days * 24);
+        setTimeLeft(`${days}d ${hours}h`);
+      }
+    };
+
+    // Set the interval and clear it on unmount or when match has already started
+    // const timer = setInterval(calculateTimeLeft, 1000);
+
+    // Initial calculation
+    calculateTimeLeft();
+
+    // Cleanup the interval on component unmount or if the match has already started
+    // return () => clearInterval(timer);
+  }, [Details]);
   useEffect(() => {
     console.log("Selected Players:", selectedPlayers);
   }, [selectedPlayers]);
-  const players = [
-    { id: 1, name: "Player 1", team: 1 },
-    { id: 2, name: "Player 2", team: 2 },
-    { id: 3, name: "Player 3", team: 1 },
-    { id: 4, name: "Player 4", team: 2 },
-    { id: 5, name: "Player 5", team: 1 },
-    { id: 6, name: "Player 6", team: 2 },
-    { id: 7, name: "Player 7", team: 1 },
-    { id: 8, name: "Player 8", team: 2 },
-    { id: 9, name: "Player 9", team: 1 },
-    { id: 10, name: "Player 10", team: 2 },
-    { id: 11, name: "Player 11", team: 1 },
-    { id: 12, name: "Player 12", team: 2 },
-    { id: 13, name: "Player 13", team: 1 },
-    { id: 14, name: "Player 14", team: 2 },
-    { id: 15, name: "Player 15", team: 1 },
-    { id: 16, name: "Player 16", team: 2 },
-    { id: 17, name: "Player 17", team: 1 },
-    { id: 18, name: "Player 18", team: 2 },
-    { id: 19, name: "Player 19", team: 1 },
-    { id: 20, name: "Player 20", team: 2 },
-    { id: 21, name: "Player 21", team: 1 },
-    { id: 22, name: "Player 22", team: 2 },
-  ];
+  useEffect(() => {
+    // Fetch data once when the component mounts
+    fetch(`http://localhost:4000/match/${match_id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched matches:", data.matches); // Log to see the data structure
+        setPlayers(data.team1_players); // Store the matches data in state
+        setPlayers2(data.team2_players); // Store the matches data in state
+        setDetails(data.match_details);
+      })
+      .catch((error) => {
+        console.error("Error fetching matches:", error);
+      });
+  }, []);
+  useEffect(() => {
+    if (Details) {
+      console.log("Details updated:", Details);
+      console.log(Details.team2);
+
+      const a = jsonData.find((row) => row.name === Details.team1);
+      const b = jsonData.find((row) => row.name === Details.team2);
+      console.log(a);
+      console.log(b);
+
+      setteam1_info(a);
+      setteam2_info(b);
+    }
+  }, [Details]);
   const togglePlayerSelection = (playerId) => {
     setSelectedPlayers((prev) => {
       // If player is already selected, remove them and decrease count
@@ -62,16 +124,18 @@ function Join() {
   };
   return (
     <div>
-      <div
-        className="pb-2 sm:pb-4 bg-[linear-gradient(170deg,_#470D0A,_#0E1319,_#0E1319,_#0E1319)]"
-      >
-        <div className='flex items-center p-2'>
-          <Link to='/choose' ><IoMdArrowBack className='text-white m-2 md:m-4 mr-4 md:mr-8  text-2xl' /></Link>
-          <div className=''>
-            <div className='flex flex-grow text-lg md:text-2xl text-gray-200 font-bold items-center justify-center'>
+      <div className="pb-2 sm:pb-4 bg-[linear-gradient(170deg,_#470D0A,_#0E1319,_#0E1319,_#0E1319)]">
+        <div className="flex items-center p-2">
+          <Link to={`/choose/${match_id}`}>
+            <IoMdArrowBack className="text-white m-2 md:m-4 mr-4 md:mr-8  text-2xl" />
+          </Link>
+          <div className="">
+            <div className="flex flex-grow text-lg md:text-2xl text-gray-200 font-bold items-center justify-center">
               Create Team
             </div>
-            <div className='text-xs md:text-base text-gray-200 font-semibold'>36h left</div>
+            <div className="text-xs md:text-base text-gray-200 font-semibold">
+              {timeLeft}
+            </div>
           </div>
         </div>
         <div className="text-white text-center text-[13px] xs:text-[17px] font-semibold md:text-[21px] ">
@@ -82,14 +146,14 @@ function Join() {
             <div className="flex border-0 border-white">
               <div className="p-1  ">
                 <img
-                  src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
+                  src={team1_info?.image}
                   alt="Badge"
                   className=" w-[2.8rem] h-[2.8rem] xs:w-[3.2rem] xs:h-[3.2rem] sm:w-[4.5rem] sm:h-[4.5rem] md:w-[5.5rem] md:h-[5.5rem] object-cover border-[2px] border-white rounded-full "
                 />
               </div>
               <div className="flex flex-col justify-center md:ml-1 ">
                 <div className="text-white text-[12px] xs:text-[14px] px-1 md:text-[17px] lg:text-[19px]">
-                  AUS
+                  {team1_info?.short_name}
                 </div>
                 <div className="text-[17px] xs:text-[19px] md:text-[23px] lg:text-[25px] font-bold text-white text-left px-1">
                   0
@@ -99,14 +163,13 @@ function Join() {
             <div className="flex flex-row-reverse border-0 border-white">
               <div className="p-1  ">
                 <img
-                  src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
-                  alt="Badge"
+                  src={team2_info?.image}
                   className=" w-[2.8rem] h-[2.8rem]  xs:w-[3.2rem] xs:h-[3.2rem] sm:w-[4.5rem] sm:h-[4.5rem] md:w-[5.5rem] md:h-[5.5rem] object-cover border-[2px] border-white rounded-full "
                 />
               </div>
               <div className="flex flex-col justify-center md:mr-1">
                 <div className="text-white text-[12px] xs:text-[14px] md:text-[17px] lg:text-[19px] px-1">
-                  PAK
+                  {team2_info?.short_name}
                 </div>
                 <div className="text-[17px] xs:text-[19px] lg:text-[25px] font-bold md:text-[23px] text-white text-right px-1">
                   0
@@ -124,8 +187,9 @@ function Join() {
               <div
                 key={index}
                 onClick={() => togglePlayerSelection(playerId)} // Toggle player selection
-                className={`w-6 h-4 xs:w-8 xs:h-5 md:w-12 md:h-7 transform ml-0.5 -skew-x-12 ${isSelected ? "bg-red-500" : "bg-white"
-                  }`} // Apply red for the first N boxes
+                className={`w-6 h-4 xs:w-8 xs:h-5 md:w-12 md:h-7 transform ml-0.5 -skew-x-12 ${
+                  isSelected ? "bg-red-500" : "bg-white"
+                }`} // Apply red for the first N boxes
               >
                 {index === 10 && (
                   <div className="flex justify-center items-center">
@@ -148,7 +212,6 @@ function Join() {
         </div>
       </div>
 
-
       <div className="md:w-[55%] md:m-auto">
         <div className="grid grid-cols-2">
           <div className="flex p-3 md:px-3">
@@ -166,7 +229,7 @@ function Join() {
           </div>
         </div>
         <div className="h-[2px] w-full bg-gray-300"></div>
-        {players.map((player) => (
+        {Players.map((player) => (
           <React.Fragment key={player.id}>
             <div className="grid grid-cols-[1.5fr_1fr] lg:grid-cols-[1.7fr_1fr]">
               <div
@@ -175,7 +238,7 @@ function Join() {
               >
                 <div className="pl-2">
                   <img
-                    src={image}
+                    src={player.image}
                     className="h-[4rem] w-[4rem] lg:h-[5rem] lg:w-[5rem]"
                     alt="Description"
                   />
@@ -197,18 +260,18 @@ function Join() {
                 <div className="lg:text-[20px]">29</div>
                 <div className="lg:text-[20px]">9.0</div>
                 <div>
-                  {selectedPlayers.includes(player.id) ? (
+                  {selectedPlayers.includes(player.player_id) ? (
                     <CgRemove
                       color="red"
                       size={iconSize}
-                      onClick={() => togglePlayerSelection(player.id)}
+                      onClick={() => togglePlayerSelection(player.player_id)}
                       className="cursor-pointer"
                     />
                   ) : selectedPlayers.length < 11 ? (
                     <CgAdd
                       color="green"
                       size={iconSize}
-                      onClick={() => togglePlayerSelection(player.id)}
+                      onClick={() => togglePlayerSelection(player.player_id)}
                       className="cursor-pointer"
                     />
                   ) : (
@@ -225,10 +288,86 @@ function Join() {
 
             {/* Transitioned Box */}
             <div
-              className={`transition-all duration-300 ease-in-out overflow-hidden ${expandedPlayerId === player.id
-                ? "max-h-[200px] opacity-100"
-                : "max-h-0 opacity-0"
-                }`}
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                expandedPlayerId === player.player_id
+                  ? "max-h-[200px] opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
+              style={{ transitionProperty: "max-height, opacity" }}
+            >
+              <div className="pl-2 py-2 bg-gray-100 border-t-2 border-gray-300">
+                {/* Dummy Content */}
+                <p>This is the expanded content for {player.name}.</p>
+              </div>
+            </div>
+
+            <div className="h-[1px] bg-gray-300"></div>
+          </React.Fragment>
+        ))}
+        {Players2.map((player) => (
+          <React.Fragment key={player.id}>
+            <div className="grid grid-cols-[1.5fr_1fr] lg:grid-cols-[1.7fr_1fr]">
+              <div
+                className="flex"
+                onClick={() => handlePlayerClick(player.id)}
+              >
+                <div className="pl-2">
+                  <img
+                    src={player.image}
+                    className="h-[4rem] w-[4rem] lg:h-[5rem] lg:w-[5rem]"
+                    alt="Description"
+                  />
+                </div>
+                <div className="flex flex-col justify-center px-2">
+                  <div className="text-[14px] xs:text-[15px] md:text-[19px] text-gray-800 font-bold">
+                    {player.name}
+                  </div>
+                  <div className="text-[12px] xs:text-[13px] md:text-[17px] text-gray-500 font-semibold">
+                    Sel by 1.59%
+                  </div>
+                  <div className="flex text-[10px] xs:text-[11px] md:text-[15px] items-center">
+                    <div className="bg-[#332054] rounded-full h-[6px] w-[6px]"></div>
+                    <div className="text-[#332054] ml-1">Played last match</div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-evenly items-center">
+                <div className="lg:text-[20px]">29</div>
+                <div className="lg:text-[20px]">9.0</div>
+                <div>
+                  {selectedPlayers.includes(player.player_id) ? (
+                    <CgRemove
+                      color="red"
+                      size={iconSize}
+                      onClick={() => togglePlayerSelection(player.player_id)}
+                      className="cursor-pointer"
+                    />
+                  ) : selectedPlayers.length < 11 ? (
+                    <CgAdd
+                      color="green"
+                      size={iconSize}
+                      onClick={() => togglePlayerSelection(player.player_id)}
+                      className="cursor-pointer"
+                    />
+                  ) : (
+                    <CgAdd
+                      color="gray"
+                      size={iconSize}
+                      className="cursor-pointer"
+                      disabled
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Transitioned Box */}
+            <div
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                expandedPlayerId === player.player_id
+                  ? "max-h-[200px] opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
               style={{ transitionProperty: "max-height, opacity" }}
             >
               <div className="pl-2 py-2 bg-gray-100 border-t-2 border-gray-300">

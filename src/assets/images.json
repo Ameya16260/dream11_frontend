@@ -1,0 +1,203 @@
+[
+    {
+      "name": "Afghanistan",
+      "short_name": "AFG",
+      "image": "https://flagcdn.com/w320/af.png"
+    },
+    {
+      "name": "Australia",
+      "short_name": "AUS",
+      "image": "https://flagcdn.com/w320/au.png"
+    },
+    {
+      "name": "Bangladesh",
+      "short_name": "BAN",
+      "image": "https://flagcdn.com/w320/bd.png"
+    },
+    {
+      "name": "England",
+      "short_name": "ENG",
+      "image": "https://flagcdn.com/w320/gb-eng.png"
+    },
+    {
+      "name": "India",
+      "short_name": "IND",
+      "image": "https://flagcdn.com/w320/in.png"
+    },
+    {
+      "name": "Ireland",
+      "short_name": "IRE",
+      "image": "https://flagcdn.com/w320/ie.png"
+    },
+    {
+      "name": "New Zealand",
+      "short_name": "NZ",
+      "image": "https://flagcdn.com/w320/nz.png"
+    },
+    {
+      "name": "Pakistan",
+      "short_name": "PAK",
+      "image": "https://flagcdn.com/w320/pk.png"
+    },
+    {
+      "name": "South Africa",
+      "short_name": "SA",
+      "image": "https://flagcdn.com/w320/za.png"
+    },
+    {
+      "name": "Sri Lanka",
+      "short_name": "SL",
+      "image": "https://flagcdn.com/w320/lk.png"
+    },
+    {
+      "name": "West Indies",
+      "short_name": "WI",
+      "image": "https://flagcdn.com/w320/jm.png"
+    },
+    {
+      "name": "Zimbabwe",
+      "short_name": "ZIM",
+      "image": "https://flagcdn.com/w320/zw.png"
+    },
+    {
+      "name": "Netherlands",
+      "short_name": "NED",
+      "image": "https://flagcdn.com/w320/nl.png"
+    },
+    {
+      "name": "Oman",
+      "short_name": "OMN",
+      "image": "https://flagcdn.com/w320/om.png"
+    },
+    {
+      "name": "Scotland",
+      "short_name": "SCO",
+      "image": "https://flagcdn.com/w320/gb-sct.png"
+    },
+    {
+      "name": "Namibia",
+      "short_name": "NAM",
+      "image": "https://flagcdn.com/w320/na.png"
+    },
+    {
+      "name": "Nepal",
+      "short_name": "NEP",
+      "image": "https://flagcdn.com/w320/np.png"
+    },
+    {
+      "name": "Papua New Guinea",
+      "short_name": "PNG",
+      "image": "https://flagcdn.com/w320/pg.png"
+    },
+    {
+      "name": "United Arab Emirates",
+      "short_name": "UAE",
+      "image": "https://flagcdn.com/w320/ae.png"
+    },
+    {
+      "name": "United States",
+      "short_name": "USA",
+      "image": "https://flagcdn.com/w320/us.png"
+    },
+    {
+      "name": "Kenya",
+      "short_name": "KEN",
+      "image": "https://flagcdn.com/w320/ke.png"
+    },
+    {
+      "name": "Canada",
+      "short_name": "CAN",
+      "image": "https://flagcdn.com/w320/ca.png"
+    },
+    {
+      "name": "Uganda",
+      "short_name": "UGA",
+      "image": "https://flagcdn.com/w320/ug.png"
+    },
+    {
+      "name": "Malaysia",
+      "short_name": "MAL",
+      "image": "https://flagcdn.com/w320/my.png"
+    },
+    {
+      "name": "Hong Kong",
+      "short_name": "HK",
+      "image": "https://flagcdn.com/w320/hk.png"
+    },
+    {
+      "name": "Chennai Super Kings",
+      "short_name": "CSK",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2b/Chennai_Super_Kings_Logo.svg/245px-Chennai_Super_Kings_Logo.svg.png"
+    },
+    {
+      "name": "Mumbai Indians",
+      "short_name": "MI",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Mumbai_Indians_Logo.svg/235px-Mumbai_Indians_Logo.svg.png"
+    },
+    {
+      "name": "Royal Challengers Bengaluru",
+      "short_name": "RCB",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Royal_Challengers_Bengaluru_Logo.png/160px-Royal_Challengers_Bengaluru_Logo.png"
+    },
+    {
+      "name": "Kolkata Knight Riders",
+      "short_name": "KKR",
+      "image": "hhttps://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Kolkata_Knight_Riders_Logo.svg/175px-Kolkata_Knight_Riders_Logo.svg.png"
+    },
+    {
+      "name": "Delhi Capitals",
+      "short_name": "DC",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2f/Delhi_Capitals.svg/240px-Delhi_Capitals.svg.png"
+    },
+    {
+      "name": "Punjab Kings",
+      "short_name": "PBKS",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Punjab_Kings_Logo.svg/170px-Punjab_Kings_Logo.svg.png"
+    },
+    {
+      "name": "Rajasthan Royals",
+      "short_name": "RR",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/This_is_the_logo_for_Rajasthan_Royals%2C_a_cricket_team_playing_in_the_Indian_Premier_League_%28IPL%29.svg/200px-This_is_the_logo_for_Rajasthan_Royals%2C_a_cricket_team_playing_in_the_Indian_Premier_League_%28IPL%29.svg.png"
+    },
+    {
+      "name": "Sunrisers Hyderabad",
+      "short_name": "SRH",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Sunrisers_Hyderabad.png/260px-Sunrisers_Hyderabad.png"
+    },
+    {
+      "name": "Gujarat Titans",
+      "short_name": "GT",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/0/09/Gujarat_Titans_Logo.svg/200px-Gujarat_Titans_Logo.svg.png"
+    },
+    {
+      "name": "Lucknow Super Giants",
+      "short_name": "LSG",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Lucknow_Super_Giants_IPL_Logo.svg/200px-Lucknow_Super_Giants_IPL_Logo.svg.png"
+    },
+    {
+      "name": "Deccan Chargers",
+      "short_name": "DC",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a6/HyderabadDeccanChargers.png/200px-HyderabadDeccanChargers.png"
+    },
+    {
+      "name": "Pune Warriors India",
+      "short_name": "PWI",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Pune_Warriors_India_IPL_Logo.png/200px-Pune_Warriors_India_IPL_Logo.png"
+    },
+    {
+      "name": "Kochi Tuskers Kerala",
+      "short_name": "KTK",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Kochi_Tuskers_Kerala_Logo.svg/250px-Kochi_Tuskers_Kerala_Logo.svg.png"
+    },
+    {
+      "name": "Rising Pune Supergiants",
+      "short_name": "RPS",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Rising_Pune_Supergiant.png/200px-Rising_Pune_Supergiant.png"
+    },
+    {
+      "name": "Gujarat Lions",
+      "short_name": "GL",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Gujarat_Lions.png/200px-Gujarat_Lions.png"
+    }
+  ]
+  

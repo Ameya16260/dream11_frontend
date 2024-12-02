@@ -1,13 +1,73 @@
 import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-function Upcoming_matches() {
+const formatMatchTime = (matchDate) => {
+  const matchDateObj = new Date(matchDate); // Parse the matchDate string into a Date object
+
+  // Use toLocaleTimeString with options to display in 12-hour format in UTC
+  const options = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // Use AM/PM format
+    timeZone: "UTC", // Specify UTC time zone
+  };
+
+  return matchDateObj.toLocaleTimeString("en-US", options); // Display in AM/PM format, in UTC
+};
+
+const calculateTimeLeftForMatch = (matchDate) => {
+  // Check if match date is provided
+  if (!matchDate) {
+    return "Match data is unavailable.";
+  }
+
+  // Get the match time (in ISO 8601 format)
+  const matchDateObj = new Date(matchDate);
+  const now = new Date(import.meta.env.VITE_NOW_TIME);
+
+  const timeDifference = matchDateObj - now;
+
+  // If the match time has already passed
+  if (timeDifference <= 0) {
+    return "The match has already started or ended.";
+  }
+
+  // If less than 1 day left, show time in hours and minutes
+  if (timeDifference < 1000 * 60 * 60 * 24) {
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutes = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    return `${hours}h ${minutes}m`;
+  } else {
+    // If more than 1 day left, show time in days
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60) - days * 24);
+    return `${days}d ${hours}h`;
+  }
+};
+function Upcoming_matches({ matches }) {
+  const [timeLeftArray, setTimeLeftArray] = useState([]);
+  const [matchTimesArray, setMatchTimesArray] = useState([]);
+  useEffect(() => {
+    // Calculate time left for each match
+    const updatedTimeLeftArray = matches.map((match) =>
+      calculateTimeLeftForMatch(match.date)
+    );
+
+    const updatedMatchTimesArray = matches.map((match) =>
+      formatMatchTime(match.date)
+    );
+    setTimeLeftArray(updatedTimeLeftArray);
+    setMatchTimesArray(updatedMatchTimesArray);
+  }, [matches]);
   return (
     <div className="  box-border ">
       <div className="bg-[linear-gradient(120deg,_#AC242D,_#5A0D13)] flex items-center ">
-        <Link to='/' >
-          <IoMdArrowBack className='text-white m-2 text-2xl' />
+        <Link to="/">
+          <IoMdArrowBack className="text-white m-2 text-2xl" />
         </Link>
         <div className=" text-white md:text-[25px] font-semibold p-4 text-center ">
           All Upcoming Matches
@@ -19,14 +79,14 @@ function Upcoming_matches() {
           Upcoming Matches
         </div>
 
-        {[1, 2, 3, 4].map(i => {
+        {matches.map((i, index) => {
           return (
             <div className="border-2  md:w-[55%] sm:w-[85%] w-[95%] rounded-xl mb-4">
-              <Link to='/join'>
+              <Link to={`/choose/${i.match_id}`}>
                 <div className=" text-[12px] font-semibold sm:text-[15px] md:text-[1.5rem] p-3 text-gray-800 bg-gray-100 rounded-t-xl w-full">
-                  West Indies vs England T20I
+                  {i.team1} vs {i.team2} {i.match_type}
                 </div>
-                <div className="grid grid-cols-[2fr_1.5fr_2fr] ">
+                <div className="grid grid-cols-[2.7fr_1.5fr_2.7fr] ">
                   <div className="">
                     <div className="flex items-center overflow-hidden px-3 py-1 relative">
                       <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
@@ -50,15 +110,15 @@ function Upcoming_matches() {
                       </div>
                     </div>
                     <div className=" px-3 md:text-[1.4rem] md:px-3 text-gray-500 text-sm font-semibold">
-                      Pakistan
+                      {i.team1}
                     </div>
                   </div>
                   <div className=" flex flex-col justify-center items-center">
                     <div className=" text-[#e72525] p-1 bg-red-100 rounded-md text-sm md:text-[25px] font-bold">
-                      58m 18s
+                      {timeLeftArray[index]}
                     </div>
                     <div className=" text-gray-500 text-xs md:text-[20px] font-semibold">
-                      1:30 AM
+                      {matchTimesArray[index]}
                     </div>
                   </div>
                   <div className="">
@@ -84,7 +144,7 @@ function Upcoming_matches() {
                       </div>
                     </div>
                     <div className=" px-3 md:text-[1.4rem] md:px-3 text-gray-500 text-right text-sm font-semibold">
-                      Australia
+                      {i.team2}
                     </div>
                   </div>
                 </div>
@@ -96,11 +156,8 @@ function Upcoming_matches() {
                 </div>
               </Link>
             </div>
-          )
+          );
         })}
-
-
-
       </div>
     </div>
   );
