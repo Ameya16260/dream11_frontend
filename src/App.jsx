@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     // Fetch data once when the component mounts
-    fetch("http://localhost:4000/matches?limit=15")
+    fetch("http://13.51.199.61/matches?limit=15")
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched matches:", data.matches); // Log to see the data structure
