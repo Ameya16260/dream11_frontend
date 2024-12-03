@@ -20,6 +20,9 @@ function Joined() {
       setToggleState(true);
     }
   };
+  const modelai = () => {
+    togglefn();
+  };
   const { match_id } = useParams();
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [Players, setPlayers] = useState([]);
@@ -29,6 +32,7 @@ function Joined() {
   const [Details, setDetails] = useState([]);
   const [SelectedPlayersCount, setSelectedPlayersCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState("");
+  const [explanation, setExplanation] = useState([]);
 
   useEffect(() => {
     // Get the match time (in ISO 8601 format)
@@ -199,8 +203,8 @@ function Joined() {
           <div className=" w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4 mb-10">
             <img src="/ai.png" alt="" className="w-full rounded-md" />
 
-            <Link
-              to={`/join/${match_id}`}
+            <button
+              onClick={modelai}
               className="relative inline-block px-6 py-4 w-full font-semibold text-black bg-white rounded-lg group text-center"
             >
               {/* Subtle Glowing Border */}
@@ -213,7 +217,7 @@ function Joined() {
               <span className="relative font-bold text-gray-600  md:text-lg">
                 USE AI GENERATED TEAM
               </span>
-            </Link>
+            </button>
           </div>
         </>
       ) : (

@@ -2,7 +2,7 @@ import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import data from "../../assets/images.json";
 const formatMatchTime = (matchDate) => {
   const matchDateObj = new Date(matchDate); // Parse the matchDate string into a Date object
 
@@ -49,6 +49,7 @@ const calculateTimeLeftForMatch = (matchDate) => {
   }
 };
 function Upcoming_matches({ matches }) {
+  const jsonData = data;
   const [timeLeftArray, setTimeLeftArray] = useState([]);
   const [matchTimesArray, setMatchTimesArray] = useState([]);
   useEffect(() => {
@@ -80,9 +81,11 @@ function Upcoming_matches({ matches }) {
         </div>
 
         {matches.map((i, index) => {
+          const a = jsonData.find((row) => row.name === i.team1);
+          const b = jsonData.find((row) => row.name === i.team2);
           return (
             <div className="border-2  md:w-[55%] sm:w-[85%] w-[95%] rounded-xl mb-4">
-              <Link to={`/choose/${i.match_id}`}>
+              <Link to={`/join/${i.match_id}`}>
                 <div className=" text-[12px] font-semibold sm:text-[15px] md:text-[1.5rem] p-3 text-gray-800 bg-gray-100 rounded-t-xl w-full">
                   {i.team1} vs {i.team2} {i.match_type}
                 </div>
@@ -91,19 +94,19 @@ function Upcoming_matches({ matches }) {
                     <div className="flex items-center overflow-hidden px-3 py-1 relative">
                       <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                         <img
-                          src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
+                          src={a?.image}
                           alt="Badge"
                           className="w-[2.5rem] h-[2.5rem] sm:w-[4rem] sm:h-[4rem] md:w-[4.5rem] md:h-[4.5rem] object-cover rounded-full shadow-md shadow-gray-700"
                         />
                       </div>
                       <div className="flex justify-center items-center">
                         <div className=" text-[15px] text-gray-800 font-bold md:text-[2rem] p-2 md:p-4 ">
-                          PAK
+                          {a?.short_name}
                         </div>
                       </div>
                       <div className="absolute -left-[20px] md:-left-[40px] z-0 ">
                         <img
-                          src="https://cdn.britannica.com/46/3346-050-DE92F66A/flag-symbolism-Pakistan-design-Islamic.jpg"
+                          src={a?.image}
                           alt="Badge"
                           className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-15"
                         />
@@ -125,19 +128,19 @@ function Upcoming_matches({ matches }) {
                     <div className="flex flex-row-reverse items-center overflow-hidden px-3 py-1 relative">
                       <div className="z-10 h-[4rem] sm:h-[6rem] md:h-[7rem] flex items-center">
                         <img
-                          src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
+                          src={b?.image}
                           alt="Badge"
                           className="w-[2.5rem] h-[2.5rem] sm:w-[4rem] sm:h-[4rem] md:w-[4.5rem] md:h-[4.5rem] object-cover rounded-full shadow-md shadow-gray-700"
                         />
                       </div>
                       <div className="flex justify-center items-center">
                         <div className="  text-[15px] text-gray-800 font-bold md:text-[2rem] p-2 md:p-4">
-                          AUS
+                          {b?.short_name}
                         </div>
                       </div>
                       <div className="absolute -right-[20px] md:-right-[40px] z-0 ">
                         <img
-                          src="https://imgs.search.brave.com/8XQRTHnaPQrwFCraOWhqSUt-8IRJB9FbwPQHjpEVsfw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzkyLzExLzEw/LzM2MF9GXzY5MjEx/MTA2OV9OdEdveG5Q/eFdvRUpsQnl5TTBy/TFE4dGdpYVgySzM0/OS5qcGc"
+                          src={b?.image}
                           alt="Badge"
                           className=" w-[4rem] h-[4rem] sm:w-[5.5rem] sm:h-[5.5rem] md:w-[6.5rem] md:h-[6.5rem] object-cover rounded-full shadow-md shadow-gray-700 opacity-15"
                         />
