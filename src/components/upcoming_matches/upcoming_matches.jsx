@@ -3,6 +3,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import data from "../../assets/images.json";
+import { Skeleton } from "@mui/material";
 const formatMatchTime = (matchDate) => {
   const matchDateObj = new Date(matchDate); // Parse the matchDate string into a Date object
 
@@ -84,7 +85,7 @@ function Upcoming_matches({ matches }) {
           const a = jsonData.find((row) => row.name === i.team1);
           const b = jsonData.find((row) => row.name === i.team2);
           return (
-            <div className="border-2  md:w-[55%] sm:w-[85%] w-[95%] rounded-xl mb-4">
+            <div className="border-2  md:w-[55%] sm:w-[85%] w-[95%] rounded-xl mb-4" key={index}>
               <Link to={`/join/${i.match_id}`}>
                 <div className=" text-[12px] font-semibold sm:text-[15px] md:text-[1.5rem] p-3 text-gray-800 bg-gray-100 rounded-t-xl w-full">
                   {i.team1} vs {i.team2} {i.match_type}
@@ -161,6 +162,19 @@ function Upcoming_matches({ matches }) {
             </div>
           );
         })}
+        {matches.length === 0 && Array.from({ length: 10 }).map((_, index) => (
+          <Skeleton
+            variant="rectangular"
+            key={index}
+            sx={{
+              height: { xs: "200px", md: "270px" }, // Set height directly
+              width: { xs: "95%", sm: "85%", md: "55%" }, // Responsive width
+              borderRadius: "12px", // `rounded-xl` in Tailwind
+              marginBottom: "1rem", // `mb-4` in Tailwind
+            }}
+          />
+        ))
+        }
       </div>
     </div>
   );

@@ -2,15 +2,18 @@ import React from "react";
 import { CgAdd } from "react-icons/cg";
 import { CgRemove } from "react-icons/cg";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useWindowSize } from "react-use";
 import image from "../../assets/a.avif";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import data from "../../assets/images.json";
+import { Skeleton } from "@mui/material";
 function Joined() {
   const [toggleState, setToggleState] = useState(true);
   const [expandedPlayerId, setExpandedPlayerId] = useState(null); // null means no player is expanded
+  const [explanation, setExplanation] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const jsonData = data;
   const togglefn = () => {
@@ -21,7 +24,55 @@ function Joined() {
     }
   };
   const modelai = () => {
-    togglefn();
+    setLoading(true)
+    const allPlayers = [...Players, ...Players2]; // Combine the two player lists.
+
+    const rows = allPlayers.map((player, index) => ({
+      id: player.player_id,
+      "Player Name": player.name,
+      Squad: index < 11 ? Details.team1 : Details.team2,
+      "Match Date": Details.date,
+      Format: Details.match_type,
+    }));
+
+    const combinedData = {
+      rows: rows,
+    };
+
+    console.log(combinedData);
+
+    fetch(`${import.meta.env.VITE_BACKEND}/model`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(combinedData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const ids = data.output.map(item => item.id);
+        const explanations = data.output.map(item => item.explanation);
+
+        setSelectedPlayers(ids);
+        const explanationDict = data.output.reduce((acc, item) => {
+          acc[item.id] = item.explanation;
+          return acc;
+        }, {});
+        setExplanation(explanationDict);
+      })
+      .then(() => {
+        setLoading(false);
+        if (toggleState) {
+          setToggleState(false);
+        } else {
+          setToggleState(true);
+        }
+      })
+      .catch((error) => {
+        setLoading(false)
+        console.error("Error fetching matches:", error);
+      });
+    // togglefn();
   };
   const { match_id } = useParams();
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -32,7 +83,6 @@ function Joined() {
   const [Details, setDetails] = useState([]);
   const [SelectedPlayersCount, setSelectedPlayersCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState("");
-  const [explanation, setExplanation] = useState([]);
 
   useEffect(() => {
     // Get the match time (in ISO 8601 format)
@@ -84,7 +134,7 @@ function Joined() {
   }, [selectedPlayers]);
   useEffect(() => {
     // Fetch data once when the component mounts
-    fetch(`http://13.51.199.61/match/${match_id}`)
+    fetch(`${import.meta.env.VITE_BACKEND}/match/${match_id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched matches:", data.matches); // Log to see the data structure
@@ -133,25 +183,46 @@ function Joined() {
   const handlePlayerClick = (playerId) => {
     setExpandedPlayerId((prev) => (prev === playerId ? null : playerId)); // Toggle expansion
   };
+  
+  const navigate = useNavigate();
+  const next = ()=>{
+    if(selectedPlayers.length===11){
+      navigate("/team", { state: {Details,Players,Players2, selectedPlayers } });
+    }
+  }
+
   return (
     <div>
       {toggleState ? (
         <>
           <div className="flex items-center bg-[linear-gradient(150deg,_#470D0A,_#0E1319,_#0E1319)] p-2">
-            <Link to="/" className="absolute">
+            <Link to="/" className="absolute" >
               <IoMdArrowBack className="text-white m-2 text-2xl" />
             </Link>
             <div className="flex flex-col flex-grow items-center justify-center">
               <div className="flex flex-grow items-center justify-center">
-                <img
-                  src={team1_info?.image}
-                  alt="Badge"
-                  className="w-8 h-8 md:w-11 md:h-11 object-cover rounded-full border border-white"
-                />
+                {Details.length === 0 ?
+                  <Skeleton
+                    variant="circular"
+                    sx={{
+                      height: { xs: "32px", md: "44px" }, // `h-10` (40px) for small screens, `md:h-[85px]` for medium screens
+                      width: { xs: "32px", md: "44px" }, // `w-10` (40px), `md:w-[85px]`
+                      aspectRatio: "1 / 1", // `aspect-square`
+                      borderRadius: "50%", // `rounded-full` // `shadow-md` and `shadow-gray-700`
+                      objectFit: "cover", // `object-cover`
+                      bgcolor: "gray"
+                    }}
+                  />
+                  :
+                  <img
+                    src={team1_info?.image}
+                    alt="Badge"
+                    className="w-8 h-8 md:w-11 md:h-11 object-cover rounded-full border border-white"
+                  />}
                 <div className=" pl-2 md:pl-4">
-                  <div className="text-xl md:text-2xl font-semibold text-gray-200">
+                  {Details.length === 0 ? <Skeleton variant="text" sx={{ bgcolor: "gray", width: "50px", height: "40px" }} /> : <div className="text-xl md:text-2xl font-semibold text-gray-200">
                     {team1_info?.short_name}
-                  </div>
+                  </div>}
                 </div>
                 <img
                   src="/vs.png"
@@ -160,81 +231,94 @@ function Joined() {
                   style={{ filter: "brightness(0) invert(0.5)" }}
                 />
                 <div className=" pr-2 md:pr-4">
-                  <div className="text-xl md:text-2xl font-semibold text-gray-200">
+                  {Details.length === 0 ? <Skeleton variant="text" sx={{ bgcolor: "gray", width: "50px", height: "40px" }} /> : <div className="text-xl md:text-2xl font-semibold text-gray-200">
                     {team2_info?.short_name}
-                  </div>
+                  </div>}
                 </div>
-                <img
-                  src={team2_info?.image}
-                  alt="Badge"
-                  className="w-8 h-8 md:w-11 md:h-11 object-cover rounded-full border border-white"
-                />
+                {Details.length === 0 ?
+                  <Skeleton
+                    variant="circular"
+                    sx={{
+                      height: { xs: "32px", md: "44px" }, // `h-10` (40px) for small screens, `md:h-[85px]` for medium screens
+                      width: { xs: "32px", md: "44px" }, // `w-10` (40px), `md:w-[85px]`
+                      aspectRatio: "1 / 1", // `aspect-square`
+                      borderRadius: "50%", // `rounded-full` // `shadow-md` and `shadow-gray-700`
+                      objectFit: "cover", // `object-cover`
+                      bgcolor: "gray"
+                    }}
+                  />
+                  :
+                  <img
+                    src={team2_info?.image}
+                    alt="Badge"
+                    className="w-8 h-8 md:w-11 md:h-11 object-cover rounded-full border border-white"
+                  />}
               </div>
-              <div className="transform -translate-y-1/3 text-sm text-gray-200">
+              {Details.length === 0 ? <Skeleton variant="text" sx={{ bgcolor: "gray", width: "80px" }} /> : <div className="transform -translate-y-1/3 text-sm text-gray-200">
                 {timeLeft} left
+              </div>}
+            </div>
+          </div>
+
+          {loading ?
+            <div className="flex flex-col h-[60vh] w-full justify-center items-center">
+              <img src="/loader.gif" alt="Loading..." className="w-16 h-16" />
+              <div className="m-3 font-custom text-2xl text-gray-500">Generating Team ...</div>
+            </div>
+            :
+            <>
+              <div className="text-gray-800 font-bold text-center mt-6 md:text-lg">
+                Pick your favourite players
               </div>
-            </div>
-          </div>
 
-          <div className="text-gray-800 font-bold text-center mt-6 md:text-lg">
-            Pick your favourite players
-          </div>
+              <div className=" w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4">
+                <img src="/join.png" alt="" className="w-full rounded-lg" />
+                {Details.length === 0 ? <Skeleton variant="text" sx={{ width: "100%", height: "80px" }} /> : <button onClick={togglefn}
+                  className="p-3 mt-2 md:mt-4 mb-4 w-full text-center bg-green-600 rounded-lg  text-white font-bold md:text-lg"
+                >
+                  CREATE YOUR OWN TEAM
+                </button>}
+                {Details.length === 0 ? <Skeleton variant="text" sx={{ width: "100%", height: "80px" }} /> : <button
+                  onClick={modelai}
+                  className="relative inline-block px-6 py-4 w-full font-semibold text-black bg-white rounded-lg group text-center"
+                >
+                  {/* Subtle Glowing Border */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg blur-lg opacity-80 transition-transform transform group-hover:scale-105"></span>
 
-          <div className=" w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4">
-            <img src="/join.png" alt="" className="w-full rounded-lg" />
-            <div
-              to="/join"
-              className="p-3 mt-2 md:mt-4 mb-4 w-full text-center bg-green-600 rounded-lg  text-white font-bold md:text-lg"
-            >
-              <button onClick={togglefn}>CREATE YOUR OWN TEAM</button>
-            </div>
-          </div>
+                  {/* White Background */}
+                  <span className="absolute inset-1 bg-white rounded-lg"></span>
 
-          <div className="flex w-full justify-center items-center mt-7">
-            <div className=" mr-2 h-[1px] md:h-[2px] w-[70px] md:w-[15%] bg-gradient-to-l from-gray-700 to-transparent rounded-full"></div>
-            <div className=" text-gray-700  font-bold md:text-2xl">OR</div>
-            <div className=" ml-2 h-[1px] md:h-[2px] w-[70px] md:w-[15%] bg-gradient-to-r from-gray-700 to-transparent rounded-full"></div>
-          </div>
-
-          <div className="text-gray-800 font-bold text-center mt-6 md:text-lg">
-            Pick team made with AI
-          </div>
-
-          <div className=" w-[90%] md:w-[50%] mt-4 m-auto bg-white justify-center shadow-md shadow-gray-400 rounded-lg p-2 md:p-4 mb-10">
-            <img src="/ai.png" alt="" className="w-full rounded-md" />
-
-            <button
-              onClick={modelai}
-              className="relative inline-block px-6 py-4 w-full font-semibold text-black bg-white rounded-lg group text-center"
-            >
-              {/* Subtle Glowing Border */}
-              <span className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-lg blur-lg opacity-80 transition-transform transform group-hover:scale-105"></span>
-
-              {/* White Background */}
-              <span className="absolute inset-1 bg-white rounded-lg"></span>
-
-              {/* Button Text */}
-              <span className="relative font-bold text-gray-600  md:text-lg">
-                USE AI GENERATED TEAM
-              </span>
-            </button>
-          </div>
+                  {/* Button Text */}
+                  <span className="relative font-bold text-gray-600  md:text-lg">
+                    USE AI GENERATED TEAM
+                  </span>
+                </button>}
+              </div>
+            </>}
         </>
       ) : (
         <>
           <div className="pb-2 sm:pb-4 bg-[linear-gradient(170deg,_#470D0A,_#0E1319,_#0E1319,_#0E1319)]">
-            <div className="flex items-center p-2">
-              <button onClick={togglefn}>
-                <IoMdArrowBack className="text-white m-2 md:m-4 mr-4 md:mr-8  text-2xl" />
-              </button>
-              <div className="">
-                <div className="flex flex-grow text-lg md:text-2xl text-gray-200 font-bold items-center justify-center">
-                  Create Team
-                </div>
-                <div className="text-xs md:text-base text-gray-200 font-semibold">
-                  {timeLeft}
+            <div className="flex items-center justify-between p-2">
+              <div className="flex">
+                <button onClick={() => {
+                  togglefn();
+                  setSelectedPlayers([]);
+                  setExplanation(null);
+                  console.log("back");
+                }}>
+                  <IoMdArrowBack className="text-white m-2 md:m-4 mr-4 md:mr-8  text-2xl" />
+                </button>
+                <div className="">
+                  <div className="flex flex-grow text-lg md:text-2xl text-gray-200 font-bold items-center justify-center">
+                    Create Team
+                  </div>
+                  <div className="text-xs md:text-base text-gray-200 font-semibold">
+                    {timeLeft}
+                  </div>
                 </div>
               </div>
+              <button onClick={next} className="py-0.5 px-1.5 bg-gray-800 text-gray-50 rounded font-bold text-lg">Next</button>
             </div>
             <div className="text-white text-center text-[13px] xs:text-[17px] font-semibold md:text-[21px] ">
               Maximum of 10 players from one team
@@ -285,9 +369,8 @@ function Joined() {
                   <div
                     key={index}
                     onClick={() => togglePlayerSelection(playerId)} // Toggle player selection
-                    className={`w-6 h-4 xs:w-8 xs:h-5 md:w-12 md:h-7 transform ml-0.5 -skew-x-12 ${
-                      isSelected ? "bg-red-500" : "bg-white"
-                    }`} // Apply red for the first N boxes
+                    className={`w-6 h-4 xs:w-8 xs:h-5 md:w-12 md:h-7 transform ml-0.5 -skew-x-12 ${isSelected ? "bg-red-500" : "bg-white"
+                      }`} // Apply red for the first N boxes
                   >
                     {index === 10 && (
                       <div className="flex justify-center items-center">
@@ -312,7 +395,7 @@ function Joined() {
 
           <div className="md:w-[55%] md:m-auto">
             <div className="grid grid-cols-2">
-              <div className="flex p-3 md:px-3">
+              {/* <div className="flex p-3 md:px-3">
                 <div className="text-gray-500 font-semibold text-sm xs:text-[14px] md:text-[19px]">
                   SELECTED BY
                 </div>
@@ -324,10 +407,10 @@ function Joined() {
                 <div className="text-gray-500 text-sm  xs:px-4 xs:text-[14px] md:text-[19px] sm:px-6 font-semibold">
                   CREDITS
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="h-[2px] w-full bg-gray-300"></div>
-            {Players.map((player) => (
+            {Players.map((player, index) => (
               <React.Fragment key={player.player_id}>
                 <div className="grid grid-cols-[1.5fr_1fr] lg:grid-cols-[1.7fr_1fr]">
                   <div
@@ -336,7 +419,7 @@ function Joined() {
                   >
                     <div className="pl-2">
                       <img
-                        src={player.image}
+                        src={player.image || '/no-img.webp'}
                         className="h-[4rem] w-[4rem] lg:h-[5rem] lg:w-[5rem]"
                         alt="Description"
                       />
@@ -346,7 +429,7 @@ function Joined() {
                         {player.name}
                       </div>
                       <div className="text-[12px] xs:text-[13px] md:text-[17px] text-gray-500 font-semibold">
-                        Sel by 1.59%
+                        {player.role}
                       </div>
                       <div className="flex text-[10px] xs:text-[11px] md:text-[15px] items-center">
                         <div className="bg-[#332054] rounded-full h-[6px] w-[6px]"></div>
@@ -356,9 +439,9 @@ function Joined() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-evenly items-center">
-                    <div className="lg:text-[20px]">29</div>
-                    <div className="lg:text-[20px]">9.0</div>
+                  <div className="flex justify-end items-center mr-6">
+                    {/* <div className="lg:text-[20px]">29</div>
+                    <div className="lg:text-[20px]">9.0</div> */}
                     <div>
                       {selectedPlayers.includes(player.player_id) ? (
                         <CgRemove
@@ -391,24 +474,23 @@ function Joined() {
                 </div>
 
                 {/* Transitioned Box */}
-                <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    expandedPlayerId === player.player_id
-                      ? "max-h-[200px] opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
+                {explanation && explanation[player.player_id] && <div
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${expandedPlayerId === player.player_id
+                    ? " opacity-100"
+                    : "max-h-0 opacity-0"
+                    }`}
                   style={{ transitionProperty: "max-height, opacity" }}
                 >
-                  <div className="pl-2 py-2 bg-gray-100 border-t-2 border-gray-300">
+                  <div className="p-4 bg-gray-100 border-t-2 border-gray-300 text-red-800 font-semibold">
                     {/* Dummy Content */}
-                    <p>This is the expanded content for {player.name}.</p>
+                    <p>{explanation[player.player_id]}</p>
                   </div>
-                </div>
+                </div>}
 
                 <div className="h-[1px] bg-gray-300"></div>
               </React.Fragment>
             ))}
-            {Players2.map((player) => (
+            {Players2.map((player, index) => (
               <React.Fragment key={player.id}>
                 <div className="grid grid-cols-[1.5fr_1fr] lg:grid-cols-[1.7fr_1fr]">
                   <div
@@ -417,7 +499,7 @@ function Joined() {
                   >
                     <div className="pl-2">
                       <img
-                        src={player.image}
+                        src={player.image || '/no-img.webp'}
                         className="h-[4rem] w-[4rem] lg:h-[5rem] lg:w-[5rem]"
                         alt="Description"
                       />
@@ -427,7 +509,7 @@ function Joined() {
                         {player.name}
                       </div>
                       <div className="text-[12px] xs:text-[13px] md:text-[17px] text-gray-500 font-semibold">
-                        Sel by 1.59%
+                        {player.role}
                       </div>
                       <div className="flex text-[10px] xs:text-[11px] md:text-[15px] items-center">
                         <div className="bg-[#332054] rounded-full h-[6px] w-[6px]"></div>
@@ -437,9 +519,9 @@ function Joined() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-evenly items-center">
-                    <div className="lg:text-[20px]">29</div>
-                    <div className="lg:text-[20px]">9.0</div>
+                  <div className="flex justify-end items-center mr-6">
+                    {/* <div className="lg:text-[20px]">29</div>
+                    <div className="lg:text-[20px]">9.0</div> */}
                     <div>
                       {selectedPlayers.includes(player.player_id) ? (
                         <CgRemove
@@ -472,27 +554,27 @@ function Joined() {
                 </div>
 
                 {/* Transitioned Box */}
-                <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    expandedPlayerId === player.player_id
-                      ? "max-h-[200px] opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
+                {explanation && explanation[player.player_id] && <div
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${expandedPlayerId === player.player_id
+                    ? "opacity-100"
+                    : "max-h-0 opacity-0"
+                    }`}
                   style={{ transitionProperty: "max-height, opacity" }}
                 >
-                  <div className="pl-2 py-2 bg-gray-100 border-t-2 border-gray-300">
+                  <div className="p-4 bg-gray-100 border-t-2 font-semibold text-red-900 border-gray-300">
                     {/* Dummy Content */}
-                    <p>This is the expanded content for {player.name}.</p>
+                    <p>{explanation[player.player_id]}</p>
                   </div>
-                </div>
+                </div>}
 
                 <div className="h-[1px] bg-gray-300"></div>
               </React.Fragment>
             ))}
           </div>
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 }
 

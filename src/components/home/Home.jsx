@@ -65,7 +65,7 @@ function Home({ match }) {
     // return () => clearInterval(timer);
   }, [match]); // Only rerun if `match` changes
   // Only rerun if `match` changes
-
+  
   return (
     <>
       <div className="bg-[linear-gradient(120deg,_#AC242D,_#5A0D13)] h-[43vh] md:h-[75vh]">
@@ -93,20 +93,25 @@ function Home({ match }) {
         </div>
       </div>
       <div className="w-[90%] md:w-[55%] h-[80%] bg-white absolute top-[15%] md:top-[20%] left-1/2 transform -translate-x-1/2 rounded-2xl px-4 md:px-10">
-        <div className=" w-full bg-gradient-to-r from-[#FEFEFE] via-[#F8F9FB] to-[#FEFEFE] rounded-t-2xl text-sm md:text-md text-center font-bold text-gray-400 p-2">
+        <div className=" w-full bg-gradient-to-r from-[#FEFEFE] via-[#F8F9FB] to-[#FEFEFE] rounded-t-2xl text-sm md:text-md text-center font-bold text-gray-400 p-2 md:hidden">
+          {" "}
+          {team1_info.short_name} vs {team2_info.short_name} {match.match_type}
+        </div>
+        <div className=" w-full bg-gradient-to-r from-[#FEFEFE] via-[#F8F9FB] to-[#FEFEFE] rounded-t-2xl text-sm md:text-md text-center font-bold text-gray-400 p-2 hidden md:block">
           {" "}
           {match.team1} vs {match.team2} {match.match_type}
         </div>
 
         <div className="flex justify-between my-5">
-          <div>
+          {/* Left Side */}
+          <div className="w-[40%] flex flex-col items-start">
             <div className="flex flex-row items-center">
               <img
                 src={team1_info.image}
                 alt="Badge"
-                className="w-10 h-10 md:w-[85px] md:h-[85px] object-cover rounded-full shadow-md shadow-gray-700"
+                className="h-10 w-10 md:w-[85px] md:h-[85px] aspect-square object-cover rounded-full shadow-md shadow-gray-700"
               />
-              <div className=" pl-2 md:pl-4">
+              <div className="pl-2 md:pl-4">
                 <div className="text-2xl md:text-[40px] font-custom font-bold text-gray-700">
                   {team1_info.short_name}
                 </div>
@@ -119,32 +124,35 @@ function Home({ match }) {
               {match.team1}
             </p>
           </div>
-          <div>
+
+          {/* Right Side */}
+          <div className="w-[40%] flex flex-col items-end">
             <div className="flex flex-row items-center">
-              <div className=" pr-2 md:pr-4">
-                <div className="text-right text-2xl md:text-[40px] font-custom font-bold text-gray-700">
+              <div className="pr-2 md:pr-4 text-right">
+                <div className="text-2xl md:text-[40px] font-custom font-bold text-gray-700">
                   {team2_info.short_name}
                 </div>
-                <p className="text-right pt-1 font-semibold text-gray-500 hidden md:block">
+                <p className="pt-1 font-semibold text-gray-500 hidden md:block">
                   {match.team2}
                 </p>
               </div>
               <img
                 src={team2_info.image}
                 alt="Badge"
-                className="w-10 h-10 md:w-[85px] md:h-[85px] object-cover rounded-full shadow-md shadow-gray-700"
+                className="w-10 h-10 md:w-[85px] md:h-[85px] aspect-square object-cover rounded-full shadow-md shadow-gray-700"
               />
             </div>
-            <p className="text-right pt-1 text-sm font-semibold text-gray-500 md:hidden">
+            <p className="pt-1 text-sm font-semibold text-right text-gray-500 md:hidden">
               {match.team2}
             </p>
           </div>
         </div>
-        <div className="flex flex-col items-center absolute left-1/2 transform -translate-x-1/2 top-[10%] md:top-[12%]">
-          <div className="text-center text-gray-500 text-[11px] md:text-lg inline">
+
+        <div className="flex flex-col items-center absolute left-1/2 transform -translate-x-1/2 top-[10%] md:top-[12%] w-[20%]">
+          <div className="text-center text-gray-500 text-[9px] md:text-lg inline">
             Match starts in
           </div>
-          <div className="text-center w-[65%] py-0.5 text-[12px] md:text-base font-bold bg-red-100 text-red-600 rounded-full">
+          <div className="text-center py-0.5 px-1 text-[12px] md:text-base font-bold bg-red-100 text-red-600 rounded-full">
             {timeLeft}
           </div>
         </div>
@@ -209,18 +217,36 @@ function Home({ match }) {
         </Link>
       </div>
 
-      <Link
-        to="/matches"
+      <div
         className="pb-[70px] w-[90%] md:w-[55%] absolute top-[73%] md:top-[100%] left-1/2 transform -translate-x-1/2"
       >
-        <div className=" bg-gray-50 shadow-md shadow-gray-400 px-2 py-3 rounded-xl text-center text-lg font-bold text-gray-700 flex items-center justify-between">
+        <Link
+        to="/matches" className=" bg-gray-50 shadow-md shadow-gray-400 px-2 py-3 rounded-xl text-center text-lg font-bold text-gray-700 flex items-center justify-between">
           <div className="flex items-center">
             <BiCricketBall className="p-1 h-8 w-8 shadow-md mr-3 shadow-gray-300 rounded-full text-red-500" />
             <div>All Upcoming Matches</div>
           </div>
           <IoIosArrowForward className="text-gray-700 text-end" />
-        </div>
-      </Link>
+        </Link>
+
+        <Link
+        to="/past-matches" className=" bg-gray-50 shadow-md shadow-gray-400 px-2 py-3 rounded-xl text-center text-lg font-bold text-gray-700 flex items-center justify-between mt-3">
+          <div className="flex items-center">
+            <BiCricketBall className="p-1 h-8 w-8 shadow-md mr-3 shadow-gray-300 rounded-full text-red-500" />
+            <div>All Past Matches</div>
+          </div>
+          <IoIosArrowForward className="text-gray-700 text-end" />
+        </Link>
+
+        <Link
+        to="/manual-matches" className=" bg-gray-50 shadow-md shadow-gray-400 px-2 py-3 rounded-xl text-center text-lg font-bold text-gray-700 flex items-center justify-between mt-3">
+          <div className="flex items-center">
+            <BiCricketBall className="p-1 h-8 w-8 shadow-md mr-3 shadow-gray-300 rounded-full text-red-500" />
+            <div>Manually Added Matches</div>
+          </div>
+          <IoIosArrowForward className="text-gray-700 text-end" />
+        </Link>
+      </div>
     </>
   );
 }
